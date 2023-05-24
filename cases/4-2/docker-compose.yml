@@ -3,6 +3,5 @@ services:
   repro_4-2:
     build: .
     network_mode: "host"
-    command: tail -F anything
     volumes:
        - ./output:/usr/local/src/output # [local path]:[container path]
