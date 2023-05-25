@@ -14,7 +14,7 @@ cd ../../cases/36
 2. Edit the following files
 
 * `get_material.r`: how to obtain the reproducible material
-* `make.sh`: how to batch execute the reproducible material
+* `make.sh`: how to batch execute the reproducible material; make sure that the code doesn't change the source code in the reproducible material for the first run
 
 3. Execute
 
@@ -22,8 +22,4 @@ cd ../../cases/36
 docker compose up --build
 ```
 
-4. Do postmortem in `output`
-
-# Postmortem
-
-1. Code this study as `Executable:1` if `docker compose up --build` works with exit code 0. Check for deviations and code `major deviations`.
+4. Do postmortem in `output`. Refer to the postmortem guide.
