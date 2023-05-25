@@ -1,6 +1,6 @@
 # reprohack23
 
-**challenge**: From 2019 to 2022, 38 papers have been published in the journal Computational Communication Research (CCR, the official journal of the ICA Computational Division). How computationally reproducible are the findings from these papers? Let's find out (by rerunning all shared code, if available).
+**challenge**: From 2019 to 2023, 50 papers have been published in the journal Computational Communication Research (CCR, the official journal of the ICA Computational Division). How computationally reproducible are the findings from these papers? Let's find out (by rerunning all shared code, if available).
 
 According to the inaugural paper in CCR: “First, we explain what computational communication science is and why a new journal is needed for this subfield. Then, we elaborate on the type of research this journal seeks to publish, and stress the need for transparent and **reproducible science**.”
 
