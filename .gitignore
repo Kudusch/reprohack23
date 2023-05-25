@@ -36,3 +36,4 @@ rsconnect/
 *.pdf
 reprohack23.Rproj
 cases/37/output/
+.DS_Store
