@@ -4,7 +4,7 @@
 
 According to the inaugural paper in CCR: “First, we explain what computational communication science is and why a new journal is needed for this subfield. Then, we elaborate on the type of research this journal seeks to publish, and stress the need for transparent and **reproducible science**.”
 
-**Contributors** (alphabetical): [Chung-hong Chan](https://github.com/chainsawriot),[Johannes Gruber](https://github.com/JBGruber),[Tim Schatto-Eckrodt](https://github.com/Kudusch),[Shelby Wilcox](https://github.com/shelbywilcox)
+**Contributors** (alphabetical): [Chung-hong Chan](https://github.com/chainsawriot), [Johannes Gruber](https://github.com/JBGruber), [Tim Schatto-Eckrodt](https://github.com/Kudusch), [Shelby Wilcox](https://github.com/shelbywilcox)
 
 ## Defining Reproducibility ##
 ### Non-reproducible
