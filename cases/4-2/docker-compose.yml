@@ -3,5 +3,7 @@ services:
   repro_4-2:
     build: .
     network_mode: "host"
+    environment:
+      - SNAPSHOT_DATE=2023-05-25
     volumes:
        - ./output:/usr/local/src/output # [local path]:[container path]
