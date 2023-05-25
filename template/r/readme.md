@@ -26,4 +26,4 @@ docker compose up --build
 
 # Postmortem
 
-1. Code this study as `Executable:1` if `docker compose up --build` works; `Executable:0` otherwise.
+1. Code this study as `Executable:1` if `docker compose up --build` works with exit code 0. Check for deviations and code `major deviations`.
