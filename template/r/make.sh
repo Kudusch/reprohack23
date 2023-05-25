@@ -8,6 +8,5 @@ Rscript install_dependencies.r
 ## ADD THE BATCH EXECUTION CODE HERE
 ## e.g.
 
-# sed -i 's|data/|../data/|g' code_for_reproduction/repro.Rmd
-# Rscript -e "rmarkdown::render('./code_for_reproduction/repro.Rmd',
+# Rscript -e "rmarkdown::render('repro.Rmd',
 #             output_dir = '/usr/local/src/output')"
