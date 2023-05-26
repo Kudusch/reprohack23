@@ -42,11 +42,11 @@ get_meta <- function(art_url) {
 for(i in get_issues()) {
     tryCatch({
         arts <- get_articles(i)
-        rio::export(arts, paste0("data/issue_", str_extract(i, "\\d+$") , "_articles.csv"))
+        rio::export(arts, here::here("data/issue_", str_extract(i, "\\d+$") , "_articles.csv"))
 
         meta <- map(arts$url, function(u) get_meta(u)) %>% 
           bind_rows()
-        rio::export(meta, paste0("data/issue_", str_extract(i, "\\d+$") , "_meta.csv"))
+        rio::export(meta, here::here("data/issue_", str_extract(i, "\\d+$") , "_meta.csv"))
         
         get_pdf(arts$pdf_url, i, "data")
     }, error = function(e) {
