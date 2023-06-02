@@ -4,6 +4,8 @@ services:
     build: .
     network_mode: "host"
     environment:
-      - SNAPSHOT_DATE=2023-05-25
+      - SNAPSHOT_DATE=${SNAPSHOT_DATE}
+      - PROJECT_NODE=${PROJECT_NODE}
+      - OSF_PAT=${OSF_PAT}
     volumes:
        - ./output:/usr/local/src/output # [local path]:[container path]
