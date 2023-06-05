@@ -16,10 +16,10 @@ sed -i '84 i write.csv(data_frame(k = n_topics, perplex = map_dbl(ap_lda_compare
 R CMD BATCH Rscript/LDA2.R
 
 ## get the artefacts
-cp LDA2.Rout output/LDA2.Rout
-cp Rplots.pdf output/Rplots.pdf
-cp perplex.csv output/perplex.csv
+cp LDA2.Rout /usr/local/src/output/LDA2.Rout
+cp Rplots.pdf /usr/local/src/output/Rplots.pdf
+cp perplex.csv /usr/local/src/output/perplex.csv
 
 ## Run it to die
 
-Rscript Rscript/Plots\ for\ Figures\ 2\,\ 3\,\ and\ 5.R
+##Rscript Rscript/Plots\ for\ Figures\ 2\,\ 3\,\ and\ 5.R
