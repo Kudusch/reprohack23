@@ -1,0 +1,103 @@
+--- Simulation.R	2023-06-06 16:23:19.400298192 +0200
++++ Simulation_patched.R	2023-06-06 17:27:29.871474952 +0200
+@@ -4,7 +4,7 @@
+ ##################################
+ ### GETTING THE FUNCTIONS IN
+ 
+-install.packages("combinat")
++#install.packages("combinat")
+ 
+ library(combinat)
+ library(mvtnorm)
+@@ -837,7 +837,7 @@
+ 		}
+ 	}
+ }
+-
++}
+ 
+ 
+ 
+@@ -1020,8 +1020,8 @@
+ ###############################
+ ### REARRANGE THE DATA FOR EASIER VISUALIZATION / TABULATION / ANALYSIS
+ 
+-reliability.test <- data.frame(matrix(NA,ncol=11,nrow=21))
+-names(reliability.test) <- c("bp.m","bp.s","ka.m","ka.s","ck.m","ck.s","fk.m","fk.s","gg.m","gg.s","accuracy")
++reliability.test <- data.frame(matrix(NA,ncol=9,nrow=21))
++names(reliability.test) <- c("bp.m","bp.s","ka.m","ka.s","ck.m","ck.s","fk.m","fk.s","accuracy")
+ 
+ for (i in 1:21)
+ {
+@@ -1033,8 +1033,8 @@
+ reliability.test[i,"fk.s"] <- mean(rel.fk.s[,i,,],na.rm=T)
+ reliability.test[i,"ck.m"] <- mean(rel.ck.m[,i,,],na.rm=T)
+ reliability.test[i,"ck.s"] <- mean(rel.ck.s[,i,,],na.rm=T)
+-reliability.test[i,"gg.m"] <- mean(rel.gg.m[,i,,],na.rm=T)
+-reliability.test[i,"gg.s"] <- mean(rel.gg.s[,i,,],na.rm=T)
++#reliability.test[i,"gg.m"] <- mean(rel.gg.m[,i,,],na.rm=T)
++#reliability.test[i,"gg.s"] <- mean(rel.gg.s[,i,,],na.rm=T)
+ }
+ reliability.test$accuracy <- seq(0,1,0.05)
+ 
+@@ -1048,8 +1048,8 @@
+ reliability.test[i,"fk.s"] <- mean(rel.fk.s[,i,12,],na.rm=T)
+ reliability.test[i,"ck.m"] <- mean(rel.ck.m[,i,12,],na.rm=T)
+ reliability.test[i,"ck.s"] <- mean(rel.ck.s[,i,12,],na.rm=T)
+-reliability.test[i,"gg.m"] <- mean(rel.gg.m[,i,12,],na.rm=T)
+-reliability.test[i,"gg.s"] <- mean(rel.gg.s[,i,12,],na.rm=T)
++#reliability.test[i,"gg.m"] <- mean(rel.gg.m[,i,12,],na.rm=T)
++#reliability.test[i,"gg.s"] <- mean(rel.gg.s[,i,12,],na.rm=T)
+ }
+ reliability.test$accuracy <- seq(0,1,0.05)
+ 
+@@ -1126,15 +1126,15 @@
+ dat.corr.m$csampsize <- (as.numeric(as.character(dat.corr.m$sample)))
+ dat.corr.s$csampsize <- (as.numeric(as.character(dat.corr.s$sample)))
+ 
+-dat.corr$ctype <- Recode(dat.corr$type,"'marginal'='MD-prior';'scale'='ED-prior'")
+ 
+ dat.corr <- rbind(dat.corr.s,dat.corr.m)
++dat.corr$ctype <- Recode(dat.corr$type,"'marginal'='MD-prior';'scale'='ED-prior'")
+ 
+ dat.corr$sig.05 <- as.numeric(as.character(Recode(dat.corr$sample,"10=.632;20=.444;30=.361;40=.312;50=.279;100=.197;200=.139;300=.113;400=.098;500=.088;700=.074;1000=.062")))
+ dat.corr$sig.01 <- as.numeric(as.character(Recode(dat.corr$sample,"10=.765;20=.561;30=.463;40=.403;50=.361;100=.256;200=.182;300=.149;400=.129;500=.115;700=.097;1000=.081")))
+ # dat.corr$sig.001
+-
+-
++dat.corr$issig05 <- ifelse(dat.corr$p.025-dat.corr$sig.05>0,dat.corr$p.500,NA)
++dat.corr$delta.upper <- dat.corr$p.975-dat.corr$sig.05
+ 
+ 
+ 
+@@ -1145,8 +1145,6 @@
+ #######################################
+ ##### Equation-Fitting procedure
+ 
+-dat.corr.m <- subset(dat.corr,type=="marginal")
+-
+ dat.corr.m$ci.975 <- dat.corr.m$p.975-dat.corr.m$p.500
+ dat.corr.m$ci.025 <- dat.corr.m$p.025-dat.corr.m$p.500
+ 
+@@ -1274,15 +1272,6 @@
+ dat.corr.s$sig.05 <- as.numeric(as.character(Recode(dat.corr.s$sample,"10=.632;20=.444;30=.361;40=.312;50=.279;100=.197;200=.139;300=.113;400=.098;500=.088;700=.074;1000=.062")))
+ dat.corr.s$sig.01 <- as.numeric(as.character(Recode(dat.corr.s$sample,"10=.765;20=.561;30=.463;40=.403;50=.361;100=.256;200=.182;300=.149;400=.129;500=.115;700=.097;1000=.081")))
+ 
+-dat.corr <- rbind(dat.corr.s,dat.corr.m)
+-
+-dat.corr$issig05 <- ifelse(dat.corr$p.025-dat.corr$sig.05>0,dat.corr$p.500,NA)
+-
+-
+-dat.corr$delta.upper <- dat.corr$p.975-dat.corr$sig.05
+-
+-
+-
+ save(fitmodel.s.025x,file="eq_ci_025_ED.RData")
+ save(fitmodel.s.500,file="eq_median_ED.RData")
+ save(fitmodel.s.975x,file="eq_ci_975_ED.RData")
+@@ -1385,5 +1374,3 @@
+ PowerCalc(E=0.15,Q=0.850,N=500,alpha=.05)
+ PowerCalc(E=0.15,Q=0.950,N=500,alpha=.05)
+ PowerCalc(E=0.15,Q=1.000,N=500,alpha=.05)
+-
+-
