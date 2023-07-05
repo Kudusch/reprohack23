@@ -7,8 +7,8 @@ This is the template for making the reproducibility check.
 1. Copy the template to `cases`, e.g. `cases/36` and change to that directory
 
 ```bash
-cp -r ../template ../../cases/36
-cd ../../cases/36
+cp -r ../template ../cases/36
+cd ../cases/36
 ```
 
 2. Edit the following files
