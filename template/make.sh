@@ -8,6 +8,7 @@ Rscript install_dependencies.r
 ## If you need python
 # eval "$(pyenv init -)"
 # pyenv global $PYTHON_VERSION
+# pip config set global.index-url https://packagemanager.posit.co/pypi/$SNAPSHOT_DATE/simple
 # pip install pipreqs jupyterlab notebook nbconvert
 # ## If there are notebooks
 # jupyter nbconvert *.ipynb --to script
