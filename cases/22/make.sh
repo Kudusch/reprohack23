@@ -9,6 +9,8 @@ git remote add origin https://github.com/markusneumann/BodyLanguage
 git fetch
 git checkout 7f47fd959f72275d9a288967aaac8ef073bc005b
 
+sed -i 's|combined_fr_pd/|combined_fr_pd|' code/04_measure_assertiveness.R
+
 Rscript install_dependencies.r
 
 ## If you need python
@@ -31,6 +33,7 @@ cp -r code /usr/local/src/output
 cp -r tables /usr/local/src/output
 cp -r figures /usr/local/src/output
 cp -r data /usr/local/src/output
+cp results/dominance/convhull_on_all_data.rdata /usr/local/src/output
 
 # pip install pipreqs jupyterlab notebook nbconvert
 # ## If there are notebooks
