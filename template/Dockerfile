@@ -24,10 +24,6 @@ RUN apt-get update \
     libffi-dev \
     liblzma-dev
 
-# copy scripts
-COPY . /usr/local/src/input
-WORKDIR /usr/local/src/input
-
 # uncomment the following if you need Python
 # ENV PYENV_GIT_TAG v2.3.17
 # ENV PYENV_ROOT $HOME/.pyenv
@@ -37,5 +33,9 @@ WORKDIR /usr/local/src/input
 #     && eval "$(pyenv init -)" \
 #     && pyenv install $PYTHON_VERSION \
 #     && pyenv global $PYTHON_VERSION
+
+# copy scripts
+COPY . /usr/local/src/input
+WORKDIR /usr/local/src/input
 
 CMD ["bash", "make.sh"]
