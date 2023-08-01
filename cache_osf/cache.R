@@ -22,7 +22,7 @@ start_time <- as.character(Sys.time())
     base_dir <- here::here("data", "osfcache", node)
     dir.create(base_dir)
     osf_retrieve_node(node) %>% 
-        osf_ls_files() %>%
+        osf_ls_files(n_max = Inf) %>%
         osf_download(base_dir, progress = TRUE)
 }
 
