@@ -15,7 +15,7 @@ pip config set global.index-url https://packagemanager.posit.co/pypi/$SNAPSHOT_D
 ## But the code is quite slow; we need to run them in parallel
 
 apt-get install parallel -y
-parallel < cmds.sh
+parallel < cmds1.sh
 
 ## do all visualization tasks
 
