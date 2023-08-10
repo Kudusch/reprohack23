@@ -29,9 +29,19 @@ python -c "import nltk; nltk.download('averaged_perceptron_tagger')"
 cp ../lexica/*.* ./
 cp -r ../data ./
 cp ../01.diff ./
+cp ../02.diff ./
+cp ../03.diff ./
 
 patch < 01.diff
 python '01 - Deliberation - Feature extraction.py'
+
+patch < 02.diff
+python '02 - Deliberation - baselines.py'
+
+patch < 03.diff
+python '03 - Generating labels on unlabeled data with trained models.py' ## ERR
+
+cp -r data /usr/local/src/output
 
 ## ADD THE BATCH EXECUTION CODE HERE
 ## e.g.
