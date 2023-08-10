@@ -1,0 +1,139 @@
+--- "01 - Deliberation - Feature extraction.py"	2023-08-10 13:06:58.463367114 +0000
++++ 01-ed.py	2023-08-10 13:04:21.397132419 +0000
+@@ -87,7 +87,7 @@
+ 
+ def extract_harbingers(df, X_col):
+ 
+-    with open('/home/kokil/feature_extraction/data/2015_Diplomacy_lexicon.json') as f:
++    with open('2015_Diplomacy_lexicon.json') as f:
+         features = json.loads(f.readline())
+ 
+     for feature in features:
+@@ -156,10 +156,10 @@
+ 
+ # List harbingers, liwc and politeness features
+ import json
+-with open('/home/kokil/feature_extraction/data/2015_Diplomacy_lexicon.json') as f:
++with open('2015_Diplomacy_lexicon.json') as f:
+     harb_dict = json.loads(f.readline())
+-politeness_dict = pd.read_csv('/home/kokil/feature_extraction/data/politeness_list.csv')
+-liwc_dict = pd.read_csv('/home/kokil/feature_extraction/data/liwc_list.csv')
++politeness_dict = pd.read_csv('politeness_list.csv')
++liwc_dict = pd.read_csv('liwc_list.csv')
+ X_cols = list(politeness_dict.columns) + list(liwc_dict.columns) + list(harb_dict.keys())
+ 
+ 
+@@ -424,12 +424,12 @@
+         lexicon = pd.read_csv(nrc,
+                             names=["word", "emotion", "association"],
+                             sep=r'\t', engine='python')
+-        df = df.append(lexicon)
++        df = pd.concat([df, lexicon])
+ 
+     if(dictionary == "liwc" or choice == 1):
+-        #response = requests.get('/home/kokil/feature_extraction/data/liwc2015.txt')
++        #response = requests.get('liwc2015.txt')
+         #liwc = StringIO(response.text)
+-        liwc = '/home/kokil/feature_extraction/data/liwc2015.txt'
++        liwc = 'liwc2015.txt'
+ 
+ 
+        # emodic = {'text': text, 'PPRON': [],'BODY': [],'WE': [],'DEATH': [],'FOCUSFUTURE': [],'FEEL': [],'INTERROG': [],'NUMBER': [],'POSEMO': [],'NEGATE': [],'QUANT': [],'THEY': [],'AFFECT': [],'RELATIV': [],'HOME': [],'CONJ': [],'COGPROC': [],'SEXUAL': [],'AUXVERB': [],'SHEHE': [],'BIO': [],'DIFFER': [],'POWER': [],'NETSPEAK': [],'INFORMAL': [],'CAUSE': [],'FILLER': [],'INSIGHT': [],'LEISURE': [],'NEGEMO': [],'MOTION': [],'SEE': [],'FOCUSPAST': [],'ANGER': [],'ARTICLE': [],'NONFLU': [],'MALE': [],'WORK': [],'FRIEND': [],'FUNCTION': [],'RISK': [],'FAMILY': [],'SPACE': [],'I': [],'IPRON': [],'SOCIAL': [],'ASSENT': [],'DRIVES': [],'PERCEPT': [],'VERB': [],'HEAR': [],'FEMALE': [],'DISCREP': [],'YOU': [],'ADJ': [],'ACHIEVE': [],'RELIG': [],'TENTAT': [],'COMPARE': [],'ADVERB': [],'PRONOUN': [],'MONEY': [],'FOCUSPRESENT': [],'INGEST': [],'AFFILIATION': [],'SWEAR': [],'HEALTH': [],'SAD': [],'TIME': [],'REWARD': [],'ANX': [],'PREP': [],'CERTAIN': []}
+@@ -438,11 +438,11 @@
+         lexicon = pd.read_csv(liwc,
+                             names=["word", "emotion", "association"],
+                             sep=r'\t', engine='python')
+-        df = df.append(lexicon)
++        df = pd.concat([df, lexicon])
+     
+     if(dictionary == "delib" or choice == 1):
+-        delib = '/home/kokil/feature_extraction/data/dd_delib.txt'
+-        #response = requests.get('/home/kokil/feature_extraction/data/dd_delib.txt')
++        delib = 'dd_delib.txt'
++        #response = requests.get('dd_delib.txt')
+         #delib = StringIO(response.text)
+         
+ 
+@@ -455,10 +455,10 @@
+         lexicon = pd.read_csv(delib,
+                             names=["word", "emotion", "association"],
+                             sep=r'\t', engine='python')
+-        df = df.append(lexicon)
++        df = pd.concat([df, lexicon])
+     if(dictionary == "hate" or choice == 1):
+-        hate = '/home/kokil/feature_extraction/data/incivilities.txt'
+-        #response = requests.get('/home/kokil/feature_extraction/data/incivilities.txt')
++        hate = 'incivilities.txt'
++        #response = requests.get('incivilities.txt')
+         #hate = StringIO(response.text)
+         
+ 
+@@ -468,7 +468,7 @@
+         emodic = Merge(emodic,thisdic)
+ 
+         lexicon = pd.read_csv(hate,           names=["word", "emotion", "association"],             sep=r'\t', engine='python')
+-        df = df.append(lexicon)
++        df = pd.concat([df, lexicon])
+         
+     df = df.drop_duplicates(subset=['word', 'emotion'])
+     df.reset_index()
+@@ -489,8 +489,8 @@
+             emo_score = (emolex_words[emolex_words.word == word])
+             rows_list.append(emo_score)
+ 
+-            
+-    df = pd.concat(rows_list)
++    print(rows_list)
++    df = pd.concat([df] + rows_list)
+     df.reset_index(drop=True)
+ 
+     for category in list(categories):
+@@ -569,26 +569,26 @@
+             
+ ############################
+ def extract_counts(df,X_col):
+-            vectorizer = CountVectorizer(tokenizer=spacy_tokenizer, stop_words=STOP_WORDS, strip_accents='unicode')
++            vectorizer = CountVectorizer(tokenizer=spacy_tokenizer, stop_words=list(STOP_WORDS), strip_accents='unicode')
+             corpus = list(df[X_col].str.lower())
+             X = vectorizer.fit_transform(corpus)
+             df = df.join(pd.DataFrame(X.toarray()).add_prefix('count_'))
+             df.to_csv(os.path.join(MODIFIED_DATA, 'counts.csv'))
+ def extract_tfidf(df,X_col):
+-            vectorizer = TfidfVectorizer(tokenizer=spacy_tokenizer, stop_words=STOP_WORDS, strip_accents='unicode',max_features = 10000)
++            vectorizer = TfidfVectorizer(tokenizer=spacy_tokenizer, stop_words=list(STOP_WORDS), strip_accents='unicode',max_features = 10000)
+             corpus = list(df[X_col].str.lower())
+             X = vectorizer.fit_transform(corpus)
+             df = df.join(pd.DataFrame(X.toarray()).add_prefix('tfidf_'))
+             df.to_csv(os.path.join(MODIFIED_DATA, 'tfidf.csv'))
+             return df
+ def extract_tfidf_and_pos(df,X_col):
+-            vectorizer = TfidfVectorizer(    tokenizer=spacy_tokenizer,            preprocessor=preprocess,            ngram_range=(1, 3),            stop_words=STOP_WORDS, #We do better when we keep stopwords
++            vectorizer = TfidfVectorizer(    tokenizer=spacy_tokenizer,            preprocessor=preprocess,            ngram_range=(1, 3),            stop_words=list(STOP_WORDS), #We do better when we keep stopwords
+                                          use_idf=True,smooth_idf=False,      norm=None, #Applies l2 norm smoothin
+                                          decode_error='replace',            max_features=10000,                         )#    min_df=1,   max_df=0.501    
+             tweets = df[X_col]
+             tfidf = vectorizer.fit_transform(tweets).toarray()
+             print("came here")
+-            vocab = {v:i for i, v in enumerate(vectorizer.get_feature_names())}
++            vocab = {v:i for i, v in enumerate(vectorizer.get_feature_names_out())}
+             idf_vals = vectorizer.idf_
+             idf_dict = {i:idf_vals[i] for i in vocab.values()} #keys are indices; values are IDF scores
+             #Get POS tags for tweets and save as a string
+@@ -607,7 +607,7 @@
+                                              decode_error='replace',    max_features=5000      )#  min_df=1,   max_df=0.501,
+              #Construct POS TF matrix and get vocab dict
+             pos = pos_vectorizer.fit_transform(pd.Series(tweet_tags)).toarray()
+-            pos_vocab = {v:i for i, v in enumerate(pos_vectorizer.get_feature_names())}    
++            pos_vocab = {v:i for i, v in enumerate(pos_vectorizer.get_feature_names_out())}    
+             M = np.concatenate([tfidf,pos],axis=1)
+             #Finally get a list of variable names
+             variables = ['']*len(vocab)
+@@ -625,7 +625,7 @@
+             ## save the pickles
+             new_vocab = {v:i for i, v in enumerate(variables)}
+             new_vectorizer = TfidfVectorizer(    #vectorizer = sklearn.feature_extraction.text.CountVectorizer(
+-                tokenizer=spacy_tokenizer,    preprocessor=preprocess,    ngram_range=(1, 3),    stop_words=STOP_WORDS, #We do better when we keep stopwords
++                tokenizer=spacy_tokenizer,    preprocessor=preprocess,    ngram_range=(1, 3),    stop_words=list(STOP_WORDS), #We do better when we keep stopwords
+                 use_idf=False,    smooth_idf=False,    norm=None, #Applies l2 norm smoothing
+                 decode_error='replace',    min_df=1,    max_df=1.0,    vocabulary=new_vocab    )
+             joblib.dump(vectorizer, 'final_tfidf_vectorizer.pkl')
