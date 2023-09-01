@@ -13,7 +13,7 @@ unzip age-gender.zip
 ## cd age-gender
 ## Rscript -e "packrat::restore()"
 
-## we also tried to convert it to renv; doesn't work too.
+## we also tried to convert it to renv; doesn't work either.
 ## Moral of the story: Don't mess with MASS
 
 rm -rf age-gender/packrat
@@ -35,3 +35,14 @@ R CMD BATCH 2_analysis.R
 
 cd ..
 cp -r age-gender /usr/local/src/output
+
+# Part 2
+unzip face.zip
+cd face
+
+# run included container
+apt-get install -y docker.io
+
+patch < 3.diff
+docker build -t 20-repro_4-2-face-image -f face-gpu.Dockerfile .
+docker run --gpus all --name 20-repro_4-2-face 20-repro_4-2-face-image

@@ -3,10 +3,12 @@ services:
   repro_4-2:
     build: .
     network_mode: "host"
+    command: tail -f /dev/null
     environment:
-      - SNAPSHOT_DATE=${SNAPSHOT_DATE}
+      - SNAPSHOT_DATE=2023-05-25
       - PYTHON_VERSION=3.11.3
-      - PROJECT_NODE=${PROJECT_NODE}
-      - OSF_PAT=${OSF_PAT}
+      - PROJECT_NODE=jngkx
+      - USE_GPU=true
     volumes:
-       - ./output:/usr/local/src/output # [local path]:[container path]
+      - ./output:/usr/local/src/output # [local path]:[container path]
+      - /var/run/docker.sock:/var/run/docker.sock:ro # enable container to run included docker files
