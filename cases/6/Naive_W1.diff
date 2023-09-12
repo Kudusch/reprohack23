@@ -1,0 +1,35 @@
+--- Visualize_Progress_complete.R	2023-07-31 18:10:21.072245191 +0200
++++ Visualize_Progress_complete_patched.R	2023-09-12 13:24:16.703490535 +0200
+@@ -22,6 +22,7 @@
+ avnames = c("Coeff A", "Coeff B", "Coeff C", "Coeff D", "Coeff E")
+ adlist = list(av1,av2,av3,av4,av5)
+ i = 1
++pdf("fig1.pdf")
+ par(mfrow=c(2,2))
+ for(i in 1:5){
+   data = adlist[[i]]
+@@ -34,6 +35,7 @@
+   plot(coeff[start:end],result[start:end],main=paste("Effect on Result",avnames[i]),ylab=avnames[i])
+   
+ }
++dev.off()
+ 
+ # plot3d(av1[,1][start:end],av2[,1][start:end],av1[,2][start:end],
+ #        xlab=avnames[1],ylab=avnames[2],zlab="Result")
+@@ -66,6 +68,7 @@
+ if(maxx>length(dta2$M_Result)){maxx=length(dta2$M_Result)}
+ i = 6
+ 
++pdf("fig2.pdf")
+ par(mfrow=c(2,3))
+ for(i in c(3,4,5,2,6,1)){
+   data = dlist[[i]]
+@@ -83,7 +86,7 @@
+   lines(lfdn,low,lty="dashed")
+   abline(baseline[i],0,col="red")
+ }
+-
++dev.off()
+ 
+ b_reli = dta2$M_coeff_a/dta2$M_coeff_b
+ b_reli = b_reli[minx:length(b_reli)]

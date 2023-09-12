@@ -1,0 +1,71 @@
+--- Visualize_Progress_within_w2.R	2023-07-31 18:10:21.060245056 +0200
++++ Visualize_Progress_within_w2_patched.R	2023-09-12 13:19:55.728574206 +0200
+@@ -22,6 +22,8 @@
+ avnames = c("Coeff A", "Coeff B", "Coeff C", "Coeff D", "Coeff E")
+ adlist = list(av1,av2,av3,av4,av5)
+ i = 1
++
++pdf("fig1.pdf")
+ par(mfrow=c(2,2))
+ for(i in 1:5){
+   data = adlist[[i]]
+@@ -34,7 +36,7 @@
+   plot(coeff[start:end],result[start:end],main=paste("Effect on Result",avnames[i]),ylab=avnames[i])
+   
+ }
+-
++dev.off()
+ 
+ v1 = cbind(1/dta2$M_Result,1/dta2$SD_Result,1/dta2$Hig_Result,1/dta2$Low_Result)
+ v2 = cbind(dta2$M_coeff_a,dta2$SD_coeff_a,dta2$Low_coeff_a,dta2$Hig_coeff_a)
+@@ -51,6 +53,7 @@
+ if(maxx>length(dta2$M_Result)){maxx=length(dta2$M_Result)}
+ i = 6
+ 
++pdf("fig2.pdf")
+ par(mfrow=c(2,3))
+ for(i in c(3,4,5,2,6,1)){
+   data = dlist[[i]]
+@@ -68,7 +71,7 @@
+   lines(lfdn,low,lty="dashed")
+   abline(baseline[i],0,col="red")
+ }
+-
++dev.off()
+ 
+ b_reli = dta2$M_coeff_a/dta2$M_coeff_b
+ b_reli = b_reli[minx:length(b_reli)]
+@@ -94,6 +97,8 @@
+ 
+ dta3 = read.table("Summary_Crossval.txt",header=T,sep="\t",quote="")
+ dta3$lfdn = 1:length(dta3$TS)
++
++pdf("fig3.pdf")
+ par(mfrow=c(2,3))
+ ## Result
+ plot(dta3$lfdn,dta3$DRSQ_Training,main="Delta R-Suqared",
+@@ -107,10 +112,12 @@
+ plot(dta3$lfdn,dta3$M_coeff_c,type="l",main="C")
+ plot(dta3$lfdn,dta3$M_coeff_d,type="l",main="D")
+ plot(dta3$lfdn,dta3$M_coeff_e,type="l",main="E")
++dev.off()
+ 
++pdf("fig4.pdf")
+ par(mfrow=c(1,1))
+ plot(dta3$DRSQ_Training,dta3$DRSQ_Test)
+-
++dev.off()
+ 
+ ggplot(dta3, aes(lfdn)) + 
+   geom_line(aes(y = DRSQ_Training, colour = "Training")) + 
+@@ -119,8 +126,8 @@
+   geom_smooth(aes(y=DRSQ_Test, colour = "Test"), method = "lm") +
+   ylab("Explained Variance") +
+   xlab("Bootstrapping Samples") +
+-  labs(colour="Data set")
+-
++  labs(colour="Data set") -> gg1
++ggsave("fig5.pdf", gg1)
+ 
+ 
+ ### Final Values for all coefficients
