@@ -13,8 +13,7 @@ pip config set global.index-url https://packagemanager.posit.co/pypi/$SNAPSHOT_D
 
 ## The Python actually does not need pypi / pip.
 ## But the code is quite slow; we need to run them in parallel
-
-apt-get install parallel -y
+apt-get update; apt-get install parallel patch -y
 parallel < cmds1.sh
 
 ## do all visualization tasks
