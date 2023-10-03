@@ -61,7 +61,7 @@ Waisbord (2019) - *Communication: A Post-Discipline*
 > CCR demands transparent and reproducible research. ... As digital data and analysis code can be shared easily, computational research can be at the forefront of the open science philosophy ... Most articles in CCR should be accompanied by an online appendix in a form that encourages __reproducibility__ and reusability.
 
 ::: {style="font-size: 0.3em"}
-[Van Atteveldt. (2019)](https://doi.org/10.5117/CCR2019.1.001.VANA)
+[Van Atteveldt et al. (2019)](https://doi.org/10.5117/CCR2019.1.001.VANA)
 :::
 
 ## Question
