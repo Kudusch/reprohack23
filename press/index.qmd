@@ -32,7 +32,7 @@ Adamic & Glance (2005)
 
 . . .
 
-> Whatever piece of scholarship finds room in communication associations, journals, departments, and schools is communication research.
+> Whatever piece of scholarship finds room in __communication associations, journals,__ departments, and schools is communication research.
 
 ::: {style="font-size: 0.3em"}
 Waisbord (2019) - *Communication: A Post-Discipline*
@@ -307,6 +307,6 @@ Articles which produce the same answer
 ::: {.incremental}
 * 6 / 30 or 1 / 30
 * More than half **not** due to technical issues
-* **Not** due to technical issues such as irreproducible computational environment, but incomplete sharing of data
+* **Not** due to technical issues such as irreproducible computational environment, but incomplete sharing
 * Improve research practices
 :::
