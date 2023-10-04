@@ -1,11 +1,11 @@
 ---
-title: "Computational Reproducibility"
-subtitle: "What makes computational communication science (ir)reproducible?"
+title: "What"
+subtitle: "makes computational communication science (ir)reproducible?"
 author: Johannes B. Gruber, Tim Schatto-Eckrodt, Chung-hong Chan
 institute: Universiteit van Amsterdam, Universität Hamburg, GESIS
 date: 2023-10-05
 date-format: "YYYY-MM-DD"
-footer: "Computational Reproducibility"
+footer: "WIP, don't cite"
 embed-resources: true
 format: fakegesis-revealjs
 ---
@@ -118,10 +118,48 @@ Really?
 * Rocker `rver` + an optional Python `pyenv` layer
 * R 4.3.0 and Python 3.11.3 (Snapshot date)
 
-## Dependencies
+## Dependencies (I/II)
 
 * Code scanning for dependencies: `renv` (R) and `pipreqs` (Python)
 * Installation: Posit Public Package Manager (set to Snapshot date)
+
+## Dependencies (II/II)
+
+::: {style="font-size: 0.5em"}
+docker-compose.yml
+:::
+
+```{.yaml}
+version: "3.8"
+services:
+  repro_4-2:
+    build: .
+    network_mode: "host"
+    environment:
+      - SNAPSHOT_DATE=2023-05-25
+      - PYTHON_VERSION=3.11.3
+    volumes:
+       - ./output:/usr/local/src/output # [local path]:[container path]
+```
+
+::: {style="font-size: 0.5em"}
+install_dependencies.R
+:::
+
+
+```r
+snap_date <- as.Date(Sys.getenv("SNAPSHOT_DATE"))
+repo <- paste0("https://packagemanager.posit.co/cran/", snap_date)
+options(repos = c(REPO_NAME = repo))
+```
+
+::: {style="font-size: 0.5em"}
+install_dependencies.sh
+:::
+
+```bash
+pip config set global.index-url https://packagemanager.posit.co/pypi/$SNAPSHOT_DATE/simple
+```
 
 ## Code execution
 
@@ -271,7 +309,11 @@ Articles which produce the same answer
 
 ## Irreproducible
 
-::: {.incremental}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
 * **Incomplete sharing of data**
 * **Social media data antics**
 * **Incomplete sharing of code**
@@ -279,6 +321,12 @@ Articles which produce the same answer
 * Insufficient documentation
 * Undocumented computational environment
 :::
+
+::: {.column width="50%"}
+![](img/tweetids.png){width=300}
+:::
+
+::::
 
 ## Reproducible
 
@@ -306,7 +354,7 @@ Articles which produce the same answer
 
 ::: {.incremental}
 * 6 / 30 or 1 / 30
-* More than half **not** due to technical issues
-* **Not** due to technical issues such as irreproducible computational environment, but incomplete sharing
+* 14: **not** due to technical issues
+* Incomplete sharing is the major technical issue (not computational environment)
 * Improve research practices
 :::
