@@ -354,7 +354,7 @@ Articles which produce the same answer
 
 ::: {.incremental}
 * 6 / 30 or 1 / 30
-* 14: **not** due to technical issues
+* 16: **not** due to technical issues
 * Incomplete sharing is the major technical issue (not computational environment)
-* Improve research practices
+* Improve research practices, Education?
 :::
