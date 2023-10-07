@@ -1,0 +1,62 @@
+--- Visualize_Progress_bs.R	2023-07-31 18:10:20.956243881 +0200
++++ Visualize_Progress_bs_patched.R	2023-09-12 11:21:04.547210276 +0200
+@@ -22,6 +22,7 @@
+ avnames = c("Coeff A", "Coeff B", "Coeff C", "Coeff D", "Coeff E")
+ adlist = list(av1,av2,av3,av4,av5)
+ i = 1
++pdf("fig1.pdf")
+ par(mfrow=c(2,2))
+ for(i in 1:5){
+   data = adlist[[i]]
+@@ -34,7 +35,7 @@
+   plot(coeff[start:end],result[start:end],main=paste("Effect on Result",avnames[i]),ylab=avnames[i])
+   
+ }
+-
++dev.off()
+ 
+ #v1 = cbind(1/dta2$M_Result,1/dta2$SD_Result,1/dta2$Low_Result,1/dta2$Hig_Result)
+ v1 = cbind(log(dta2$SD_Result,10),log(dta2$SD_Result,10),log(dta2$SD_Result,10),log(dta2$SD_Result,10))
+@@ -54,6 +55,7 @@
+ if(maxx>length(dta2$M_Result)){maxx=length(dta2$M_Result)}
+ i = 6
+ 
++pdf("fig2.pdf")
+ par(mfrow=c(2,3))
+ for(i in c(3,4,5,2,6,1)){
+   data = dlist[[i]]
+@@ -71,7 +73,7 @@
+   lines(lfdn,low,lty="dashed")
+   abline(baseline[i],0,col="red")
+ }
+-
++dev.off()
+ 
+ gw = 0
+ bs = 1
+@@ -94,7 +96,7 @@
+   if(minun<.34){good=c(good,b)}
+ }
+ 
+-
++pdf("fig3.pdf")
+ par(mfrow=c(2,3))
+ for(i in c(3,4,5,2,6,1)){
+   data = dlist[[i]]
+@@ -119,8 +121,9 @@
+   #abline(baseline[i],0,col="grey",lty="dashed")
+   
+ }
++dev.off()
+ 
+-
++pdf("fig4.pdf")
+ par(mfrow=c(2,3))
+ for(par in c("M_coeff_a","M_coeff_b","M_coeff_c","M_coeff_d","M_coeff_e","SD_Result")){
+   clist = c()
+@@ -133,4 +136,5 @@
+   plot(density(clist),main=par)
+   print(paste(par,"M:",mean(clist),"; SD:",sd(clist)))
+ }
++dev.off()
+ 

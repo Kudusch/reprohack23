@@ -1,0 +1,107 @@
+--- Visualize_Progress_within.R	2023-07-31 18:10:21.044244875 +0200
++++ Visualize_Progress_within_patched.R	2023-09-12 12:18:08.253893060 +0200
+@@ -23,6 +23,7 @@
+ adlist = list(av1,av2,av3,av4,av5)
+ i = 1
+ 
++pdf("fig1.pdf")
+ par(mfrow=c(2,2))
+ for(i in 1:5){
+   data = adlist[[i]]
+@@ -35,7 +36,7 @@
+   plot(coeff[start:end],result[start:end],main=paste("Effect on Result",avnames[i]),ylab=avnames[i])
+   
+ }
+-
++dev.off()
+ 
+ ta = dta$M_coeff_a/dta$SD_coeff_a
+ tb = dta$M_coeff_b/dta$SD_coeff_b
+@@ -44,7 +45,9 @@
+ te = dta$M_coeff_e/dta$SD_coeff_e
+ 
+ tprod = ta*tb*tc*td*te
++pdf("fig2.pdf")
+ plot(tprod)
++dev.off()
+ 
+ tstat = c()
+ for(i in 3:dim(dta)[1]){
+@@ -57,8 +60,10 @@
+   #tstat = c(tstat,max(ta,tb,tc,td,te))
+   tstat = c(tstat,(ta*tb*tc*td*te)**.2)
+ }
+-plot(tstat)
+ 
++pdf("fig3.pdf")
++plot(tstat)
++dev.off()
+ 
+ v1 = cbind(1/dta$M_Result,1/dta$SD_Result,1/dta$Hig_Result,1/dta$Low_Result)
+ v1 = cbind(tstat,tstat,tstat,tstat)
+@@ -76,6 +81,7 @@
+ if(maxx>length(dta$M_Result)){maxx=length(dta$M_Result)}
+ i = 6
+ 
++pdf("fig4.pdf")
+ par(mfrow=c(2,3))
+ for(i in c(3,4,5,2,6,1)){
+   data = dlist[[i]]
+@@ -93,7 +99,7 @@
+   lines(lfdn,low,lty="dashed")
+   abline(baseline[i],0,col="red")
+ }
+-
++dev.off()
+ 
+ b_reli = dta2$M_coeff_a/dta2$M_coeff_b
+ b_reli = b_reli[minx:length(b_reli)]
+@@ -119,22 +125,37 @@
+ 
+ dta3 = read.table("Summary_within.txt",header=T,sep="\t",quote="")
+ dta3$lfdn = 1:length(dta3$TS)
++
++pdf("fig5.pdf")
+ par(mfrow=c(2,3))
+ ## Result
+ plot(dta3$lfdn,dta3$DRSQ_Training,main="Delta R-Suqared",
+      ylim=c(min(c(dta3$DRSQ_Test,dta3$DRSQ_Training)),max(c(dta3$DRSQ_Test,dta3$DRSQ_Training))),
+      type="l")
+ lines(dta3$lfdn,dta3$DRSQ_Test,col="blue")
++dev.off()
+ 
+ ## Coefficients
++pdf("fig6.pdf")
+ plot(dta3$lfdn,dta3$M_coeff_a,type="l",main="A")
++dev.off()
++pdf("fig7.pdf")
+ plot(dta3$lfdn,dta3$M_coeff_b,type="l",main="B")
++dev.off()
++pdf("fig8.pdf")
+ plot(dta3$lfdn,dta3$M_coeff_c,type="l",main="C")
++dev.off()
++pdf("fig9.pdf")
+ plot(dta3$lfdn,dta3$M_coeff_d,type="l",main="D")
++dev.off()
++pdf("fig10.pdf")
+ plot(dta3$lfdn,dta3$M_coeff_e,type="l",main="E")
++dev.off()
+ 
++pdf("fig11.pdf")
+ par(mfrow=c(1,1))
+ plot(dta3$DRSQ_Training,dta3$DRSQ_Test)
++dev.off()
+ 
+ 
+ ggplot(dta3, aes(lfdn)) + 
+@@ -145,8 +166,8 @@
+   ylab("Explained Variance") +
+   xlab("Bootstrapping Samples") +
+   labs(colour="Data set")+
+-  theme_bw()
+-
++  theme_bw() -> gg1
++ggsave("fig12.pdf", gg1)
+ 
+ ### Final Values for all coefficients
+ 
