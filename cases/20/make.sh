@@ -38,11 +38,16 @@ cp -r age-gender /usr/local/src/output
 
 # Part 2
 unzip face.zip
+cp 3.diff face/3.diff
+cp 4.diff face/4.diff
 cd face
 
 # run included container
 apt-get install -y docker.io
 
 patch < 3.diff
-docker build -t 20-repro_4-2-face-image -f face-gpu.Dockerfile .
+patch < 4.diff
+DOCKER_BUILDKIT=0 docker build -t 20-repro_4-2-face-image -f face-gpu.Dockerfile .
 docker run --gpus all --name 20-repro_4-2-face 20-repro_4-2-face-image
+
+cp -r /usr/local/src/input/face /usr/local/src/output/

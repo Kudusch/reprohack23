@@ -1,5 +1,5 @@
---- output/face-gpu.Dockerfile	2023-09-01 10:05:15.315939418 +0200
-+++ face-gpu.Dockerfile_fix	2023-09-01 10:24:36.368086964 +0200
+--- face-gpu.Dockerfile	2023-09-22 09:51:01.891266478 +0200
++++ face-gpu.Dockerfile_fix	2023-09-21 21:37:28.372838905 +0200
 @@ -10,6 +10,11 @@
  ENV MXNET_CUDNN_AUTOTUNE_DEFAULT=0
  ENV MXNET_CUDNN_LIB_CHECKING=0
@@ -21,3 +21,13 @@
  # some image/media dependencies
  RUN apt-get -y update && apt-get install -y \
      libjpeg8-dev \
+@@ -50,6 +55,9 @@
+ 
+ RUN apt-get -y update && apt-get install -y ffmpeg  
+ 
++# fix: numpy needs to be installed before building decord
++RUN pip3 install numpy==1.21.2
++
+ # Build decord with Nvidia decoder
+ RUN ln -s /usr/lib/x86_64-linux-gnu/libnvcuvid.so.1 /usr/local/cuda/lib64/libnvcuvid.so
+ RUN git clone --recursive https://github.com/dmlc/decord

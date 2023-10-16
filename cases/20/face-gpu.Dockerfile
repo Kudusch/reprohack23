@@ -10,11 +10,6 @@ ENV NVIDIA_DRIVER_CAPABILITIES all
 ENV MXNET_CUDNN_AUTOTUNE_DEFAULT=0
 ENV MXNET_CUDNN_LIB_CHECKING=0
 
-# fix key issues, copied from https://github.com/NVIDIA/nvidia-docker/issues/1632#issuecomment-1125739652
-RUN apt-key del 7fa2af80
-RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub
-RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu2004/x86_64/7fa2af80.pub
-
 RUN apt-get -y update && apt-get install -y \
     software-properties-common \
     build-essential \
@@ -38,7 +33,7 @@ RUN apt-get -y update && apt-get install -y \
     python3-pip \
     python3-setuptools \
     unzip
-    
+
 # some image/media dependencies
 RUN apt-get -y update && apt-get install -y \
     libjpeg8-dev \
@@ -54,9 +49,6 @@ RUN apt-get -y update && apt-get install -y \
     libavutil-dev
 
 RUN apt-get -y update && apt-get install -y ffmpeg  
-
-# fix: numpy needs to be installed before building decord
-RUN pip3 install numpy==1.21.2
 
 # Build decord with Nvidia decoder
 RUN ln -s /usr/lib/x86_64-linux-gnu/libnvcuvid.so.1 /usr/local/cuda/lib64/libnvcuvid.so

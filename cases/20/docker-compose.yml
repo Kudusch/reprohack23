@@ -3,11 +3,13 @@ services:
   repro_4-2:
     build: .
     network_mode: "host"
-    command: tail -f /dev/null
+    # uncomment for interactive testing with docker exec -it 20-repro_4-2-1 bash
+    # command: tail -f /dev/null
+    runtime: nvidia
     environment:
       - SNAPSHOT_DATE=2023-05-25
       - PYTHON_VERSION=3.11.3
-      - PROJECT_NODE=jngkx
+       - PROJECT_NODE=jngkx
       - USE_GPU=true
     volumes:
       - ./output:/usr/local/src/output # [local path]:[container path]
