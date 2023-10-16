@@ -1,0 +1,11 @@
+--- 2_analysis.R	2021-09-25 19:37:11.000000000 +0000
++++ 2_analysis_patched.R	2023-08-16 11:57:26.973671774 +0000
+@@ -1,6 +1,6 @@
+ if (!require("pacman")) install.packages("pacman", repos = "https://cloud.r-project.org")
+-pacman::p_load(ggeffects, furrr, lme4, lubridate, tidyverse, patchwork, data.table)
+-pacman::p_load_gh("easystats/easystats")
++pacman::p_load(ggeffects, furrr, lme4, lubridate, tidyverse, patchwork, data.table, easystats)
++#pacman::p_load_gh("easystats/easystats")
+ 
+ # ----------------------
+ # Analyze age and gender from faces on TV

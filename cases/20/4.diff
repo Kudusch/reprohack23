@@ -1,0 +1,20 @@
+--- requirements.txt	2023-09-22 09:57:35.473999874 +0200
++++ requirements.txt_fix	2023-09-21 21:41:04.454245148 +0200
+@@ -9,7 +9,7 @@
+ Cython==0.29.24
+ dbus-python==1.2.16
+ decord==0.6.0
+-distro-info===0.23ubuntu1
++distro-info
+ easydict==1.9
+ flatbuffers==1.12
+ gast==0.4.0
+@@ -42,7 +42,7 @@
+ pyasn1-modules==0.2.8
+ PyGObject==3.36.0
+ pyparsing==2.4.7
+-python-apt==2.0.0+ubuntu0.20.4.6
++python-apt
+ python-dateutil==2.8.2
+ PyWavelets==1.1.1
+ PyYAML==5.4.1
