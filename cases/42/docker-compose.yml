@@ -6,5 +6,6 @@ services:
     environment:
       - SNAPSHOT_DATE=2023-05-25
       - PYTHON_VERSION=3.11.3
+      - PROJECT_NODE=${PROJECT_NODE}
     volumes:
        - ./output:/usr/local/src/output # [local path]:[container path]
