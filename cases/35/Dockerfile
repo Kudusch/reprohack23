@@ -28,7 +28,7 @@ RUN apt-get update \
 ENV PYENV_GIT_TAG v2.3.17
 ENV PYENV_ROOT $HOME/.pyenv
 ENV PATH $PYENV_ROOT/bin:$PATH
-ENV PYTHON_VERSION 3.8.0
+ENV PYTHON_VERSION 3.8.0 # changed to an older version to run some dependencies
 RUN curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash \
     && eval "$(pyenv init -)" \
     && pyenv install $PYTHON_VERSION \
