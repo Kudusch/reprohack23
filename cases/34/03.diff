@@ -1,0 +1,96 @@
+--- "03 - Generating labels on unlabeled data with trained models.py"	2023-08-10 15:18:05.812560891 +0000
++++ 03-ed.py	2023-08-10 15:44:36.290701572 +0000
+@@ -102,7 +102,7 @@
+ 
+ def extract_harbingers(df, X_col):
+ 
+-    with open('/home/kokil/feature_extraction/data/2015_Diplomacy_lexicon.json') as f:
++    with open('2015_Diplomacy_lexicon.json') as f:
+         features = json.loads(f.readline())
+ 
+     for feature in features:
+@@ -171,10 +171,10 @@
+ 
+ # List harbingers, liwc and politeness features
+ import json
+-with open('/home/kokil/feature_extraction/data/2015_Diplomacy_lexicon.json') as f:
++with open('2015_Diplomacy_lexicon.json') as f:
+     harb_dict = json.loads(f.readline())
+-politeness_dict = pd.read_csv('/home/kokil/feature_extraction/data/politeness_list.csv')
+-liwc_dict = pd.read_csv('/home/kokil/feature_extraction/data/liwc_list.csv')
++politeness_dict = pd.read_csv('politeness_list.csv')
++liwc_dict = pd.read_csv('liwc_list.csv')
+ X_cols = list(politeness_dict.columns) + list(liwc_dict.columns) + list(harb_dict.keys())
+ 
+ 
+@@ -431,12 +431,12 @@
+         lexicon = pd.read_csv(nrc,
+                             names=["word", "emotion", "association"],
+                             sep=r'\t', engine='python')
+-        df = df.append(lexicon)
++        df = pd.concat([df, lexicon])
+ 
+     if(dictionary == "liwc" or choice == 1):
+-        #response = requests.get('/home/kokil/feature_extraction/data/liwc2015.txt')
++        #response = requests.get('liwc2015.txt')
+         #liwc = StringIO(response.text)
+-        liwc = '/home/kokil/feature_extraction/data/liwc2015.txt'
++        liwc = 'liwc2015.txt'
+ 
+ 
+        # emodic = {'text': text, 'PPRON': [],'BODY': [],'WE': [],'DEATH': [],'FOCUSFUTURE': [],'FEEL': [],'INTERROG': [],'NUMBER': [],'POSEMO': [],'NEGATE': [],'QUANT': [],'THEY': [],'AFFECT': [],'RELATIV': [],'HOME': [],'CONJ': [],'COGPROC': [],'SEXUAL': [],'AUXVERB': [],'SHEHE': [],'BIO': [],'DIFFER': [],'POWER': [],'NETSPEAK': [],'INFORMAL': [],'CAUSE': [],'FILLER': [],'INSIGHT': [],'LEISURE': [],'NEGEMO': [],'MOTION': [],'SEE': [],'FOCUSPAST': [],'ANGER': [],'ARTICLE': [],'NONFLU': [],'MALE': [],'WORK': [],'FRIEND': [],'FUNCTION': [],'RISK': [],'FAMILY': [],'SPACE': [],'I': [],'IPRON': [],'SOCIAL': [],'ASSENT': [],'DRIVES': [],'PERCEPT': [],'VERB': [],'HEAR': [],'FEMALE': [],'DISCREP': [],'YOU': [],'ADJ': [],'ACHIEVE': [],'RELIG': [],'TENTAT': [],'COMPARE': [],'ADVERB': [],'PRONOUN': [],'MONEY': [],'FOCUSPRESENT': [],'INGEST': [],'AFFILIATION': [],'SWEAR': [],'HEALTH': [],'SAD': [],'TIME': [],'REWARD': [],'ANX': [],'PREP': [],'CERTAIN': []}
+@@ -445,11 +445,11 @@
+         lexicon = pd.read_csv(liwc,
+                             names=["word", "emotion", "association"],
+                             sep=r'\t', engine='python')
+-        df = df.append(lexicon)
++        df = pd.concat([df, lexicon])
+     
+     if(dictionary == "delib" or choice == 1):
+-        delib = '/home/kokil/feature_extraction/data/dd_delib.txt'
+-        #response = requests.get('/home/kokil/feature_extraction/data/dd_delib.txt')
++        delib = 'dd_delib.txt'
++        #response = requests.get('dd_delib.txt')
+         #delib = StringIO(response.text)
+         
+ 
+@@ -462,10 +462,10 @@
+         lexicon = pd.read_csv(delib,
+                             names=["word", "emotion", "association"],
+                             sep=r'\t', engine='python')
+-        df = df.append(lexicon)
++        df = pd.concat([df, lexicon])
+     if(dictionary == "hate" or choice == 1):
+-        hate = '/home/kokil/feature_extraction/data/incivilities.txt'
+-        #response = requests.get('/home/kokil/feature_extraction/data/incivilities.txt')
++        hate = 'incivilities.txt'
++        #response = requests.get('incivilities.txt')
+         #hate = StringIO(response.text)
+         
+ 
+@@ -475,7 +475,7 @@
+         emodic = Merge(emodic,thisdic)
+ 
+         lexicon = pd.read_csv(hate,           names=["word", "emotion", "association"],             sep=r'\t', engine='python')
+-        df = df.append(lexicon)
++        df = pd.concat([df, lexicon])
+         
+     df = df.drop_duplicates(subset=['word', 'emotion'])
+     df.reset_index()
+@@ -591,12 +591,13 @@
+ def extract_tfidf_and_pos(df,X_col):
+             print("Loading other information...")
+             vectorizer = joblib.load('final_tfidf_vectorizer.pkl')
+-            idf_vector = joblib.load('final_idf_vectorizer.pkl')
++##            idf_vector = joblib.load('final_idf_vectorizer.pkl')
+             pos_vectorizer = joblib.load('final_pos_vectorizer.pkl')
+             tweets = df[X_col]
+             
+-            X = transform_inputs(df[X_col], tf_vectorizer, idf_vector, pos_vectorizer)
+-            featurenames = vectorizer.get_feature_names() + pos_vectorizer.get_feature_names()
++##            X = transform_inputs(df[X_col], tf_vectorizer, idf_vector, pos_vectorizer)
++            print(vectorizer.get_feature_names_out())
++            featurenames = vectorizer.get_feature_names_out() + pos_vectorizer.get_feature_names_out()
+             df_tfidf = pd.DataFrame(tfidfs.toarray(), columns= featurenames)
+             df = df.join(df_tfidf)
+         

@@ -1,0 +1,65 @@
+--- "02 - Deliberation - baselines.py"	2023-08-10 15:18:05.592558425 +0000
++++ 02-ed.py	2023-08-10 15:15:49.655033379 +0000
+@@ -4,7 +4,7 @@
+ # In[1]:
+ 
+ 
+-DATA_PATH = "/home/kokil/feature_extraction/data/sample2.csv"
++DATA_PATH = "data/sample2.csv"
+ OUTPUT_DIR = 'data'     # You'll get 2 directories here, one will have the results and one will have CSVs with extracted features
+ 
+ X_col = 'text'  # Name of X column (string)
+@@ -131,13 +131,13 @@
+ def generate_Xy(train, test, **kwargs):
+     
+     main = pd.concat([train, test])
+-    vectorizer = CountVectorizer(tokenizer=spacy_tokenizer, stop_words=STOP_WORDS, strip_accents='unicode')
++    vectorizer = CountVectorizer(tokenizer=spacy_tokenizer, stop_words=list(STOP_WORDS), strip_accents='unicode')
+     corpus = list(main[kwargs['X_col']].str.lower())
+     X = vectorizer.fit_transform(corpus)
+     main = main.join(pd.DataFrame(X.toarray()).add_prefix('count_'))
+     main.to_csv(os.path.join(MODIFIED_DATA, 'count.csv'))
+     
+-    vectorizer = CountVectorizer(tokenizer=spacy_tokenizer, stop_words=STOP_WORDS, strip_accents='unicode')
++    vectorizer = CountVectorizer(tokenizer=spacy_tokenizer, stop_words=list(STOP_WORDS), strip_accents='unicode')
+     corpus = list(train[kwargs['X_col']].str.lower())
+     X_train = vectorizer.fit_transform(corpus)
+     X_test = vectorizer.transform(list(test[kwargs['X_col']].str.lower()))
+@@ -167,13 +167,13 @@
+ def generate_Xy(train, test, **kwargs):
+     
+     main = pd.concat([train, test])
+-    vectorizer = TfidfVectorizer(tokenizer=spacy_tokenizer, stop_words=STOP_WORDS, strip_accents='unicode')
++    vectorizer = TfidfVectorizer(tokenizer=spacy_tokenizer, stop_words=list(STOP_WORDS), strip_accents='unicode')
+     corpus = list(main[kwargs['X_col']].str.lower())
+     X = vectorizer.fit_transform(corpus)
+     main = main.join(pd.DataFrame(X.toarray()).add_prefix('tfidf_'))
+     main.to_csv(os.path.join(MODIFIED_DATA, 'tfidf.csv'))
+     
+-    vectorizer = TfidfVectorizer(tokenizer=spacy_tokenizer, stop_words=STOP_WORDS, strip_accents='unicode')
++    vectorizer = TfidfVectorizer(tokenizer=spacy_tokenizer, stop_words=list(STOP_WORDS), strip_accents='unicode')
+     corpus = list(train[kwargs['X_col']].str.lower())
+     X_train = vectorizer.fit_transform(corpus)
+     X_test = vectorizer.transform(list(test[kwargs['X_col']].str.lower()))
+@@ -199,7 +199,7 @@
+ 
+ def extract_harbingers(df, X_col):
+ 
+-    with open('/home/kokil/diplomacy/sbirl/diplomacy/data/2015_Diplomacy_lexicon.json') as f:
++    with open('2015_Diplomacy_lexicon.json') as f:
+         features = json.loads(f.readline())
+ 
+     for feature in features:
+@@ -257,10 +257,10 @@
+ 
+ 
+ # List harbingers, liwc and politeness features
+-with open('/home/kokil/diplomacy/lexica_for_featextraction/2015_Diplomacy_lexicon.json') as f:
++with open('2015_Diplomacy_lexicon.json') as f:
+     harb_dict = json.loads(f.readline())
+ #print(harb_dict)
+-main_df = pd.read_csv('/home/kokil/diplomacy/lexica_for_featextraction/politeness_list.csv')
++main_df = pd.read_csv('politeness_list.csv')
+ X_cols = list(main_df.columns) + list(harb_dict.keys())
+ print(X_cols)
+ 
