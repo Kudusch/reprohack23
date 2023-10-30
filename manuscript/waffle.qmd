@@ -1,7 +1,7 @@
 ---
 format: 
   latex:
-    template: void.tex
+    # template: void.tex
     wrap: none
 ---
 
@@ -16,13 +16,12 @@ knitr::opts_chunk$set(
   fig.width = 6.5
 )
 
-library(googlesheets4)
 library(tidyverse)
 library(waffle)
 library(hrbrthemes)
-gs4_deauth()
-results <- read_sheet("https://docs.google.com/spreadsheets/d/1CDPAce227BvLXc-3NATCT0ZEhURIIX5nK1WK5RlbyVo/edit#gid=1178889463", sheet = "results")
-raw_data <- read_sheet("https://docs.google.com/spreadsheets/d/1CDPAce227BvLXc-3NATCT0ZEhURIIX5nK1WK5RlbyVo/edit#gid=1178889463", sheet = "data")
+library(readxl)
+results <- read_excel("ccr_overview.xlsx", sheet = "results")
+raw_data <- read_excel("ccr_overview.xlsx", sheet = "data")
 raw_data %>% 
   mutate(type = recode(type,
                        "?tool" = "tool",
@@ -116,7 +115,7 @@ names(fill) <- dat$type
 #| label: fig-waffle
 #| fig-cap: "Types of (ir)reproducibility in CCR articles"
 #| fig-height: 6
-dat %>%
+waffle_fig <- dat %>%
   ggplot(
     aes(fill = type, values = n)
   ) +
@@ -135,7 +134,6 @@ dat %>%
   theme_void() +
   #theme_ipsum_rc(grid = "") +
   theme_enhance_waffle()
+ggsave("fig-waffle-1.pdf", waffle_fig, height = 6)
+waffle_fig
 ```
-
-
-
