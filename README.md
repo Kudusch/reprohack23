@@ -8,7 +8,7 @@ According to the inaugural paper in CCR: “First, we explain what computational
 
 We would like to thank [Shelby Wilcox](https://github.com/shelbywilcox) for her help during the conceptualization of this study.
 
-## Defining Reproducibility ##
+## Defining Reproducibility
 
 ### Not reproducible
 
@@ -18,17 +18,4 @@ We would like to thank [Shelby Wilcox](https://github.com/shelbywilcox) for her 
    * If not executable: Rewrite, Minor or Major
    * Reconstructing the computational environment as a container
 5. Technically executable, but with major deviations
-
-### Computational resources
-
-1. On an ordinary laptop
-2. Special equipments (GPUs, arduino)
-3. Proprietary software (e.g., SPSS, STATA) / models / APIs
-
-### Data
-1. Complete raw data
-2. Intermediate data
-
-## Getting Started ##
-
 
