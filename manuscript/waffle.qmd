@@ -1,0 +1,141 @@
+---
+format: 
+  latex:
+    template: void.tex
+    wrap: none
+---
+
+```{r setup}
+#| include: false
+# doc settings
+knitr::opts_chunk$set(
+  echo = FALSE, 
+  message = FALSE, 
+  fig.path = "",
+  fig.ext = "pdf",
+  fig.width = 6.5
+)
+
+library(googlesheets4)
+library(tidyverse)
+library(waffle)
+library(hrbrthemes)
+gs4_deauth()
+results <- read_sheet("https://docs.google.com/spreadsheets/d/1CDPAce227BvLXc-3NATCT0ZEhURIIX5nK1WK5RlbyVo/edit#gid=1178889463", sheet = "results")
+raw_data <- read_sheet("https://docs.google.com/spreadsheets/d/1CDPAce227BvLXc-3NATCT0ZEhURIIX5nK1WK5RlbyVo/edit#gid=1178889463", sheet = "data")
+raw_data %>% 
+  mutate(type = recode(type,
+                       "?tool" = "tool",
+                       "?tools" = "tool")) %>%
+  count(type) -> overview
+
+N_PROSE <- overview$n[overview$type == "prose"]
+N_MET <- overview$n[overview$type == "met"]
+N_SUB <- overview$n[overview$type == "sub"]
+N_TOOL <- overview$n[overview$type == "tool"]
+
+N_EMP <- N_SUB + N_MET
+cd_class <- raw_data %>% 
+  filter(type %in% c("met", "sub")) %>% 
+  count(code, data)
+
+N_00 <- cd_class$n[1]
+N_01 <- cd_class$n[2]
+N_10 <- cd_class$n[3]
+N_11 <- cd_class$n[4]
+
+results_clean <- results |> 
+  mutate(verdict_clean = case_when(
+    verdict %in% c("not verifiable", "prose", "tool", "?tool", "?tools") ~ "Nothing to reproduce",
+    str_detect(verdict, "Essentially reproducible") ~ "Essentially reproducible",
+    str_detect(verdict, "Largely not reproducible") ~ "Largely not reproducible",
+    str_detect(verdict, "partially reproducible") ~ "Partially reproducible",
+    str_detect(verdict, "Not reproducible") ~ "Not reproducible",
+    TRUE ~ NA_character_
+  ))
+
+rep_class <- count(results_clean, verdict_clean)
+```
+
+```{r}
+dat_old <- tribble(
+  ~type, ~n, ~fill,
+  "Nothing to reproduce", 47 - 30, "grey",
+  "No shared code", 13, "#611a15",
+  "Shared code but no data", 3, "#a40000",
+  "Code can't be executed", 7, "#ae6056",
+  "Answer deviates", 1, "#c68958",
+  "Major Code rewrite", 3, "#b8cfba",
+  "Minor Code rewrite",2, "#93cf96",
+  "Ran as is", 1, "#4caf50"
+) %>%
+  mutate(type = fct_inorder(type))
+
+no_execute <- results_clean |> 
+  filter(verdict_clean %in% c("Not reproducible", "Largely not reproducible"),
+         `major deviations` == 99L) |> 
+  nrow()
+
+deviates <- results_clean |> 
+  filter(`major deviations` == 1L) |> 
+  nrow()
+
+major_rewrite <- results_clean |> 
+  filter(!verdict_clean %in% c("Not reproducible", "Largely not reproducible"),
+         `rewrite / edit` == 2L) |> 
+  nrow()
+
+minor_rewrite <- results_clean |> 
+  filter(!verdict_clean %in% c("Not reproducible", "Largely not reproducible"),
+         `rewrite / edit` == 1L) |> 
+  nrow()
+
+asis <- results_clean |> 
+  filter(!verdict_clean %in% c("Not reproducible", "Largely not reproducible"),
+         `rewrite / edit` == 0L) |> 
+  nrow()
+
+dat <- tribble(
+  ~type, ~n, ~fill,
+  "Nothing to reproduce", N_EMP, "grey",
+  "No shared code", N_00 + N_01, "#611a15",
+  "Shared code but no data", N_10, "#a40000",
+  "Code can't be executed", no_execute, "#ae6056",
+  "Answer deviates", deviates, "#c68958",
+  "Major Code rewrite", major_rewrite, "#b8cfba",
+  "Minor Code rewrite", minor_rewrite, "#93cf96",
+  "Ran as is", asis, "#4caf50"
+) %>%
+  mutate(type = fct_inorder(type))
+
+fill <- dat$fill
+names(fill) <- dat$type
+```
+
+```{r waffle}
+#| label: fig-waffle
+#| fig-cap: "Types of (ir)reproducibility in CCR articles"
+#| fig-height: 6
+dat %>%
+  ggplot(
+    aes(fill = type, values = n)
+  ) +
+  geom_waffle(
+    n_rows = 8,
+    size = 0.33,
+    colour = "white",
+    flip = TRUE
+  ) +
+  scale_fill_manual(
+    name = NULL,
+    values = fill,
+    guide = guide_legend(reverse = TRUE)
+  ) +
+  coord_equal() +
+  theme_void() +
+  #theme_ipsum_rc(grid = "") +
+  theme_enhance_waffle()
+```
+
+
+
