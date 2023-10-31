@@ -1,0 +1,81 @@
+% Bibliography
+
+% Uncomment the next line (\nocite{*}) if you want to include all items from your .bib file
+% (e.g. if you didn't use the \textcite or \parencite commands above)
+% \nocite{*}
+
+% This command generates the bibliography
+
+
+% Include the body
+% Note: You can also type it directly here, or include a file per section, whatever works best for you
+
+Regular text is written as plain text. 
+You can write an entire paragraph in one line, 
+or split lines in any way you want
+
+\subsection{Using Latex markup commands}
+
+As you can see, markup such as (sub)section headers are introduced using latex commands starting with a backslash.
+You can use \textit{italic} and \textbf{bold} text as needed. 
+
+Quotations can be given latex style for `single' or ``double'' quotations marks,
+or a bit easier using the "csquotes" packages included above.
+You can also copy-paste the ‘smart quotes’ directly from e.g. MS Word.
+
+\subsection{Tables, figures, lists and cross-references}
+
+See Table~\ref{tab:my_label} and \ref{fig:my_label} for an example table and figure.
+You can learn more about tables and figures in latex from the overleaf documentation at
+\url{https://www.overleaf.com/learn/latex/Tables} and \url{https://www.overleaf.com/learn/latex/Inserting_Images}.
+
+For tables, we believe that the best results are achieved by using the `booktabs' and `tabularx' packages,
+and following some simple rules, shown in the numbered ("enumerated") list below:
+\begin{enumerate}
+    \item Follow APA rules for tables
+    \item Make all tables full-width
+    \item Never using vertical lines
+    \item Using horizontal lines very 
+\end{enumerate}
+
+% Note that in latex, tables and figures are 'floats' and will not be set directly where 
+% you type them, but in a location that matches the general style, usually at the top of a page
+% You can include a position hint such as the 't' below, other options are 'b' (bottom) and 'h' (here)
+\begin{table}[t] 
+    \centering
+    % Note: Xlcr in the line below specifies 3 columns with 'X', 'l', 'c', 'r', and 'S' as column types.  
+    % The first column (X) is for teXt, and will be expanded to fill the width of the table
+    % The other three columns will be just wide enough to fit the contents, 
+    % and will be aligned left, center, and right respectively
+    % The last column uses the 'S' type from the 'siunitx' package, which aligns on decimal marks
+    % Note that if you want to have regular text in such columns (e.g. in the header), 
+    % you need to enclose it in {curly braces}
+    \begin{tabularx}{\textwidth}{XlcrS}
+    % Table rows use & to separate cells and end with \\
+    % Use \toprule, \midrule and \bottomrule for the horizontal lines
+    \toprule
+       First header & Left & Center & Right & {Decimal} \\
+    \midrule
+    Description of the first row & 3.14 & A & 2.19 & 2.19\\
+    Description of the second row & 10.18 & & 10.08 & 10.1\\
+    \bottomrule
+    \end{tabularx}
+    \caption{The caption of your table}
+    % Label for cross-references, you can use any name here that you want
+    \label{tab:my_label}
+\end{table}
+
+\begin{figure}[b]
+    \centering
+    \includegraphics[width=.6\textwidth]{aup_logo.pdf}
+    \caption{Caption of your figure}
+    \label{fig:my_label}
+\end{figure}
+
+
+\section{Citations}
+
+References should be included in  ‘bibtex’ format. 
+You can easily export bibtex files from endnote, zotero etc. and upload them in Overleaf.
+
+To generate in-text citations, you can use the `textcite'  \textcite{ccrintro} said: ``CCR is great'' \parencite[p.~1]{ccrintro}
