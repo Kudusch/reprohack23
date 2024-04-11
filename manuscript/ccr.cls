@@ -1,10 +1,16 @@
 % Template for CCR Articles (very WIP)
-% 2023 Wouter van Atteveldt
-% Version 0.02
-% Please see https://github.com/vanatteveldt/ccr-quarto for the latest version of this file
+% 2023 Wouter van Atteveldt, Damian Trilling, Chung-hong Chan, Johannes B. Gruber
+% Version 0.04
+% Please see https://github.com/ccr-journal/ccr-quarto for the latest version of this file
 
 \ProvidesClass{ccr}[2023-02-03 v0.01]
 \NeedsTeXFormat{LaTeX2e}
+
+\newif\if@review
+\@reviewfalse
+
+\DeclareOption{review}{\@reviewtrue}
+\ProcessOptions\relax
 
 \LoadClass[twoside]{article}
 
@@ -12,11 +18,26 @@
 \RequirePackage[papersize={6.53in,9.61in},
   left=1.1in,right=1.1in,top=1in,textheight=7.25in]{geometry}
 
-%\usepackage[defaultsans,scaled=.95]{cantarell}
-\usepackage[sfdefault,scaled=.9]{noto}
-\usepackage[proportional,scaled=1]{erewhon}
-\usepackage[english]{babel}
-\RequirePackage[protrusion=true,expansion=true,final,babel]{microtype}
+\RequirePackage{graphicx}
+
+\RequirePackage[english]{babel}
+\renewcommand*\oldstylenums[1]{\textosf{#1}}
+\RequirePackage{ifxetex}
+\ifxetex
+  \RequirePackage[protrusion=true,final,babel]{microtype}
+  \RequirePackage{fontspec}
+  \setmainfont{erewhon}  
+  \setsansfont{Noto Sans}
+  \usepackage{unicode-math}
+  \defaultfontfeatures{ Scale=MatchLowercase, Ligatures=TeX }
+  \setmathfont{TeX Gyre Termes Math}
+
+\else
+  \RequirePackage[protrusion=true,expansion=true,final,babel]{microtype}
+  \RequirePackage[sfdefault,scaled=.9]{noto}
+  \RequirePackage[proportional,scaled=1]{erewhon}
+  \RequirePackage[erewhon,vvarbb,bigdelims]{newtxmath}
+\fi
 \renewcommand{\floatpagefraction}{.7}
 \linespread{1.1}
 
@@ -38,29 +59,51 @@
 \newcommand{\keywords}[1]{\def\@keywords{#1}}
 \newcommand{\show@keywords}{\@keywords}
 
-\def\@shortauthors{(please specify \textbackslash shortauthors)}
-\newcommand{\shortauthors}[1]{\def\@shortauthors{#1}}
-\newcommand{\show@shortauthors}{\@shortauthors}
+\if@review
+  \def\@shortauthors{Anonymous}
+  % Does nothing in review mode, but is needed elsewhere
+  \newcommand{\shortauthors}[1]{} 
+  
+  \def\@volume{}
+  \newcommand{\volume}[1]{}
+  
+  \def\@pubnumber{}
+  \newcommand{\pubnumber}[1]{}
+  
+  \def\@pubyear{}
+  \newcommand{\pubyear}[1]{}
+  
+  \def\@doi{}
+  \newcommand{\doi}[1]{}
+\else
+  \def\@shortauthors{(please specify \textbackslash shortauthors)}
+  \newcommand{\shortauthors}[1]{\def\@shortauthors{#1}}
+  
+  \def\@volume{X}
+  \newcommand{\volume}[1]{\def\@volume{#1}}
+  
+  \def\@pubnumber{Y}
+  \newcommand{\pubnumber}[1]{\def\@pubnumber{#1}}
 
-\def\@volume{X}
-\newcommand{\volume}[1]{\def\@volume{#1}}
+  \def\@pubyear{20xx}
+  \newcommand{\pubyear}[1]{\def\@pubyear{#1}}
+  
+  \def\@doi{}
+  \newcommand{\doi}[1]{\def\@doi{#1}}
+\fi
+\newcommand{\show@shortauthors}{\@shortauthors}
 \newcommand{\show@volume}{\@volume}
-\def\@pubnumber{Y}
-\newcommand{\pubnumber}[1]{\def\@pubnumber{#1}}
 \newcommand{\show@pubnumber}{\@pubnumber}
-\def\@pubyear{20xx}
-\newcommand{\pubyear}[1]{\def\@pubyear{#1}}
 \newcommand{\show@pubyear}{\@pubyear}
-\def\@doi{10.5117/ccr20xx.xxx.xxxx}
-\newcommand{\doi}[1]{\def\@doi{#1}}
 \newcommand{\show@doi}{\@doi}
 
 
 \newcommand{\firstpage}[1]{\setcounter{page}{#1}}
+
 %%%%%%%%%%%%%% HEADER / FOOTER %%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage{lastpage}
 \RequirePackage{fancyhdr}
-\RequirePackage{graphicx}
+
 \newcommand{\smallcaps}[1]{\textsc{\footnotesize #1}}
 \newcommand{\smallcapsl}[1]{\MakeLowercase{\smallcaps{#1}}}
 \setlength{\headheight}{24pt}
@@ -68,13 +111,22 @@
 %\usepackage{showframe} % useful for debugging header / margin
 \fancypagestyle{firstpage}{%
 \fancyhf{} % clear all six fields
-\fancyhead[L]{\includegraphics[height=2em]{aup_logo.pdf}}
-\fancyhead[R]{\raisebox{.1em}{\smallcaps{computational communication research 
-               \oldstylenums{\show@volume}.\oldstylenums{\show@pubnumber} (\oldstylenums{\show@pubyear}) 
-               \oldstylenums{\thepage}--\oldstylenums{\pageref{LastPage}}}}%
-               \\%
-               \raisebox{.4em}{\scriptsize\MakeUppercase{\sc\url{https://doi.org/\show@doi}}}}
-\fancyfoot[RE,LO]{\footnotesize© The authors. This is an open access article distributed under the \href{https://creativecommons.org/licenses/by/4.0/}{\textsc{cc by} \oldstylenums{4.0} license}}
+\if@review
+\else
+  \fancyhead[L]{\includegraphics[height=2em]{aup_logo.pdf}}
+\fi
+\if@review
+  \fancyhead[R]{\raisebox{.1em}{\smallcaps{computational communication research---manuscript}}}
+\else
+  \fancyhead[R]{\raisebox{.1em}{\smallcaps{computational communication research 
+                 \oldstylenums{\show@volume}.\oldstylenums{\show@pubnumber} (\oldstylenums{\show@pubyear}) 
+                 \oldstylenums{\thepage}--\oldstylenums{\pageref{LastPage}}}}%
+                 \\%
+                 \ifdefempty{\@doi}{}{
+                 \raisebox{.4em}{\scriptsize\MakeUppercase{\sc\url{https://doi.org/\show@doi}}}
+                 }}
+\fi
+\fancyfoot[RE,LO]{\footnotesize© The author(s). This is an open access article distributed under the \href{https://creativecommons.org/licenses/by/4.0/}{\textsc{cc by} \oldstylenums{4.0} license}}
 \fancyfoot[LE,RO]{\smallcaps{\thepage}}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
@@ -85,7 +137,12 @@
 \fancyhead[LO]{\smallcapsl{Computational Communication Research}}
 \fancyfoot[LE,RO]{\smallcaps{\thepage}}
 \fancyfoot[LO]{\smallcapsl{\show@shortauthors}}
-\fancyfoot[RE]{\smallcaps{vol.  \oldstylenums{\show@volume}, no.  \oldstylenums{\show@pubnumber},  \oldstylenums{\show@pubyear}}}
+\if@review
+  \fancyfoot[RE]{\smallcaps{unpublished manuscript}}
+\else
+  \fancyfoot[RE]{\smallcaps{vol. \oldstylenums{\show@volume}, no. \oldstylenums{\show@pubnumber}, \oldstylenums{\show@pubyear}}}
+\fi
+
 \renewcommand{\headrulewidth}{0Pt}
 \renewcommand{\footrulewidth}{0pt}
 }
@@ -93,8 +150,16 @@
 \pagestyle{followingpage}
 \AtBeginDocument{\thispagestyle{firstpage}}
 
+%%%%%%%%%%%%%%%%%% Draft / review %%%%%%%%%%%%%%%%%%%%%%5
 
-
+\RequirePackage[pagewise]{lineno}
+\if@review
+    \RequirePackage{draftwatermark}
+    \SetWatermarkText{\sffamily{For peer review}}
+    \SetWatermarkScale{.5}
+    \DraftwatermarkOptions{color={[RGB]{255,215,215}}}
+    \setlength\linenumbersep{1cm}
+\fi
 
 %%%%%%%%%%%%%%%%%% Other markup / styling %%%%%%%%%%%%%%%%%%%%%
 \RequirePackage{etoolbox}
@@ -177,14 +242,21 @@
 \noindent\textit{##2}
 \vspace{1em}\par
 }
-\looptwo\listauthors\listaffiliations
+\if@review
+\else
+  \looptwo\listauthors\listaffiliations
+\fi
 
 \vspace{1em}
-\parbox{\textwidth-\parindent-\parindent}{\small
+\begin{quote}\small
 \textbf{Abstract}\\\show@abstract
 \\\\
 \textbf{Keywords:} \show@keywords
-}
+\end{quote}
+
+\if@review
+\linenumbers
+\fi
 }
 
 %%%%%%%%%%%%%% Sections %%%%%%%%%%%%%%%%%%%%%
