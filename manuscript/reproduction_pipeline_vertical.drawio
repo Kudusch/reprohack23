@@ -1,0 +1,90 @@
+<mxfile host="app.diagrams.net" modified="2024-02-20T17:57:20.010Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15" etag="FxhqLNuLD3QXg4K4vwo9" version="23.1.2" type="device">
+  <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
+    <mxGraphModel dx="1590" dy="998" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="bnSp0_r6zdApnP13rRRE-22" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="bnSp0_r6zdApnP13rRRE-10" target="bnSp0_r6zdApnP13rRRE-21" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bnSp0_r6zdApnP13rRRE-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="bnSp0_r6zdApnP13rRRE-8" target="bnSp0_r6zdApnP13rRRE-25" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bnSp0_r6zdApnP13rRRE-35" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="bnSp0_r6zdApnP13rRRE-43" target="bnSp0_r6zdApnP13rRRE-25" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="271" y="530" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bnSp0_r6zdApnP13rRRE-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="bnSp0_r6zdApnP13rRRE-21" target="bnSp0_r6zdApnP13rRRE-8" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bnSp0_r6zdApnP13rRRE-21" value="Obtain the data and code&lt;br style=&quot;font-size: 20px;&quot;&gt;from our OSF cache or GitHub" style="rounded=0;whiteSpace=wrap;html=1;fontSize=20;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="264" y="238" width="300" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="bnSp0_r6zdApnP13rRRE-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="bnSp0_r6zdApnP13rRRE-25" target="bnSp0_r6zdApnP13rRRE-28" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bnSp0_r6zdApnP13rRRE-25" value="&lt;div style=&quot;font-size: 20px;&quot;&gt;Execute the code&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 20px;&quot;&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 18px;&quot;&gt;&lt;div style=&quot;&quot;&gt;using &lt;i style=&quot;&quot;&gt;R CMD BATCH&lt;/i&gt; or&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;i style=&quot;&quot;&gt;jupyter nbconvert --execute&lt;/i&gt;&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;fontSize=20;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="264" y="540" width="300" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="bnSp0_r6zdApnP13rRRE-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="bnSp0_r6zdApnP13rRRE-28" target="bnSp0_r6zdApnP13rRRE-43" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="296" y="660" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bnSp0_r6zdApnP13rRRE-36" value="Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=18;" parent="bnSp0_r6zdApnP13rRRE-29" vertex="1" connectable="0">
+          <mxGeometry x="-0.1034" relative="1" as="geometry">
+            <mxPoint x="4" y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bnSp0_r6zdApnP13rRRE-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="bnSp0_r6zdApnP13rRRE-28" target="bnSp0_r6zdApnP13rRRE-33" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bnSp0_r6zdApnP13rRRE-37" value="No" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=18;" parent="bnSp0_r6zdApnP13rRRE-34" vertex="1" connectable="0">
+          <mxGeometry x="-0.32" y="2" relative="1" as="geometry">
+            <mxPoint x="-3" y="14" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bnSp0_r6zdApnP13rRRE-28" value="Errors during execution?" style="rhombus;whiteSpace=wrap;html=1;fontSize=18;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="324" y="800" width="180" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="bnSp0_r6zdApnP13rRRE-33" value="Copy the artifacts out of the Container" style="rounded=0;whiteSpace=wrap;html=1;fontSize=20;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="264" y="1070" width="300" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="bnSp0_r6zdApnP13rRRE-43" value="&lt;b style=&quot;font-size: 20px;&quot;&gt;Minor code rewrite &lt;/b&gt;&lt;br style=&quot;font-size: 20px;&quot;&gt;&lt;font style=&quot;font-size: 18px;&quot;&gt;(e.g. fixing file paths)&lt;/font&gt;&lt;br style=&quot;font-size: 20px;&quot;&gt;&lt;br style=&quot;font-size: 20px;&quot;&gt;&lt;b style=&quot;font-size: 20px;&quot;&gt;Major code rewrite&lt;/b&gt;&lt;br style=&quot;font-size: 20px;&quot;&gt;&lt;font style=&quot;font-size: 18px;&quot;&gt;(e.g. fixing bugs)&lt;/font&gt;&lt;br style=&quot;font-size: 20px;&quot;&gt;&lt;br style=&quot;font-size: 20px;&quot;&gt;&lt;b style=&quot;font-size: 20px;&quot;&gt;Reconstruct environment&lt;/b&gt;&lt;br style=&quot;font-size: 20px;&quot;&gt;&lt;font style=&quot;font-size: 18px;&quot;&gt;(e.g. installing libraries)&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;fontSize=20;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="20" y="732.5" width="220" height="265" as="geometry" />
+        </mxCell>
+        <mxCell id="apGXoRbsIujMFJjG2ATR-2" value="" style="group" vertex="1" connectable="0" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="264" y="378" width="300" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="bnSp0_r6zdApnP13rRRE-8" value="&lt;div style=&quot;font-size: 20px;&quot;&gt;Scan code and&lt;/div&gt;&lt;div style=&quot;font-size: 20px;&quot;&gt;&amp;nbsp;install dependencies&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fontSize=20;" parent="apGXoRbsIujMFJjG2ATR-2" vertex="1">
+          <mxGeometry width="300" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="bnSp0_r6zdApnP13rRRE-13" value="renv" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" parent="apGXoRbsIujMFJjG2ATR-2" vertex="1">
+          <mxGeometry x="11" y="70" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="bnSp0_r6zdApnP13rRRE-14" value="remotes" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" parent="apGXoRbsIujMFJjG2ATR-2" vertex="1">
+          <mxGeometry x="104" y="70" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="bnSp0_r6zdApnP13rRRE-15" value="pipreqs" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" parent="apGXoRbsIujMFJjG2ATR-2" vertex="1">
+          <mxGeometry x="200" y="70" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="apGXoRbsIujMFJjG2ATR-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="apGXoRbsIujMFJjG2ATR-2" source="bnSp0_r6zdApnP13rRRE-14" target="bnSp0_r6zdApnP13rRRE-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="apGXoRbsIujMFJjG2ATR-3" value="" style="group" vertex="1" connectable="0" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="264" y="30" width="300" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="bnSp0_r6zdApnP13rRRE-10" value="Setup Docker container" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fontSize=20;" parent="apGXoRbsIujMFJjG2ATR-3" vertex="1">
+          <mxGeometry width="300" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="bnSp0_r6zdApnP13rRRE-1" value="R &lt;br style=&quot;font-size: 18px;&quot;&gt;v4.3.0&lt;br style=&quot;font-size: 18px;&quot;&gt;(Rocker)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" parent="apGXoRbsIujMFJjG2ATR-3" vertex="1">
+          <mxGeometry x="24" y="50" width="100" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="bnSp0_r6zdApnP13rRRE-2" value="Python&lt;br style=&quot;font-size: 18px;&quot;&gt;v3.11.3&lt;br style=&quot;font-size: 18px;&quot;&gt;(pyenv)" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=middle;fontSize=18;" parent="apGXoRbsIujMFJjG2ATR-3" vertex="1">
+          <mxGeometry x="175" y="50" width="100" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

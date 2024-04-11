@@ -1,0 +1,91 @@
+% Template for articles for CCR (Computational Communication Research)
+% Version 0.02
+
+% This file contains information such as author, title, etc.
+% Edit the body.tex file to add the contents (or change the \input{body} below)
+
+\documentclass{ccr}
+
+% Note - lines starting with a % are completely ignored by latex and function as comments
+% See https://www.overleaf.com/read/hmwdsgcqkxrd for a complete example article
+
+% The first part of the latex document contains metadata
+
+% Regular metadata (title, authors etc)
+\title{What makes computational communication science (ir)reproducible?}
+\shorttitle{Reproducibility}
+\authorsnames{Chung-hong Chan\footnote{All authors contributed to this project equally. The order of the names was determined by a random draw.}, Tim Schatto-Eckrodt, Johannes B. Gruber}
+% Short author list for footer
+\shortauthors{Chan et al.}
+
+% Note that you need to provide as many affiliations as authors
+% If multiple authors have the same affiliation, please copy that record as needed
+\authorsaffiliations{
+  {GESIS – Leibniz-Institut für Sozialwissenschaften},
+  {Journalism and Mass Communication, University of Hamburg},
+  {Vrije Universiteit Amsterdam}
+}
+
+\abstract{
+Computational methods are in full swing in communication science.
+Part of their promise is to make communication research more reproducible.
+However, how this plays out in practice has not been systematically studied.
+We verify the reproducibility of the entire cohort of 30 substantive and methods papers published in the journal \textit{Computational Communication Research} (CCR), the official journal of the ICA Computational Methods Division with a focus on transparency and hence a high rate of voluntary Open Science participation in the field.
+Among these CCR papers, we are not able to verify the computational reproducibility of \emph{16} papers as \emph{no} data and/or code were shared.
+For the remaining \emph{14} papers, we attempt to execute the code shared by the original authors in a standardized containerized computational environment.
+We encounter a variety of issues that preclude us from reproducing the original findings, where incomplete sharing of data or code is the most common issue.
+In the end, we could at least partially reproduce the findings in \emph{only 6 papers (20\%)}.
+Based on our findings, we discuss strategies for researchers and the subfield to correct for this disheartening state of computational reproducibility.
+}
+\keywords{reproducibility, computational communication science, Open Science}
+
+% You can add or rename the bibliography file(s) here
+% Note that you can exported them from endnote or zotero directly and upload them to overleaf
+\addbibresource{bibliography.bib}
+
+% The following information is provided by the journal when moving to production
+\volume{?}
+\pubnumber{?}
+\pubyear{2024}
+\firstpage{1}
+\doi{10.5117/CCR????}
+
+% some packages that are generally useful when writing articles in latex
+\usepackage{tabularx}  % for full-width tables
+\usepackage{booktabs}  % for nicer horizontal lines in tables
+\usepackage[mode=text]{siunitx} % for centering columns on the decimal mark
+\usepackage{graphicx} % for including figures
+\usepackage{csquotes}\MakeOuterQuote{"}  % to allow "double quotes" instead of ``double quote''
+\usepackage[hidelinks]{hyperref} % for URLs and other hyperlinks
+
+% custom packages
+\usepackage{pdfpages}
+%%%%%
+
+\begin{document}
+\maketitle
+
+% Include the body
+% Note: You can also type it directly here, or include a file per section, whatever works best for you
+
+\input{body}
+
+% Bibliography
+
+% Uncomment the next line (\nocite{*}) if you want to include all items from your .bib file
+% (e.g. if you didn't use the \textcite or \parencite commands above)
+% \nocite{*}
+
+% This command generates the bibliography
+\printbibliography
+
+% attaches our appendix
+\appendix
+\section{Postmortem Guide}
+\label{sec:postmortem}
+
+\includepdf[pages=-]{postmortem.pdf}
+
+
+\end{document}
+
