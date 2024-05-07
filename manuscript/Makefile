@@ -1,5 +1,5 @@
 render: fig-waffle-1.pdf body.tex ccr.cls
-	latexmk -xelatex main.tex
+	latexmk -pdflatex main.tex
 	rm -f *.out *aux *bbl *blg *log *toc *.ptb *.tod *.fls *.fdb_latexmk *.lof *.fff *.run.xml *.bcf *.xdv
 fig-waffle-1.pdf:
 	quarto render waffle.qmd
